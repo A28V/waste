@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'cart',
     'order',
     'pay',
+    'tinymce',
+    'blog'
 ]
 
 MIDDLEWARE = [
@@ -60,7 +62,7 @@ ROOT_URLCONF = 'fresh_healthy.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR,"template",'contact_details/template','catalog_settings/template','cart/template'],
+        'DIRS': [BASE_DIR,"template",'contact_details/template','catalog_settings/template','cart/template','blog/template'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -22,6 +22,7 @@ from users import views
 from contact_details import views as contact
 from catalog_settings import views as catalog
 from cart import views as cart
+from blog import views as blog
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('reg',views.reg,name='reg'),
@@ -42,6 +43,8 @@ urlpatterns = [
     path('cart/', cart.cart_detail, name='cart_detail'),
    # path('<str:url>',static_page_url.static_page_url,name="static_page_url"),
     path('orders/', include('order.urls')),
+    path('blog/<slug:url>', blog.blog,name='blog-view'),
+    path('commit', blog.comments,name='blog-comments'),
     path('testimonial',views.testimonial,name="testimonial"),
     path('product',views.product,name="product"),
     path('about',views.about,name="about"),

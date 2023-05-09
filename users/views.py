@@ -4,6 +4,7 @@ from django.http import HttpResponse;
 from django.http import HttpResponseRedirect;
 from django.contrib import messages
 from catalog_settings.models import *
+from blog.models import *
 from cart.forms import CartAddProductForm
 def reg(request):
 	title= {"title":"Registration page"}
@@ -72,10 +73,11 @@ def logout(request):
 	return HttpResponseRedirect('/login')
 
 def home(request):
+	blog = Blog.objects.all()
 	categories = Category.objects.all()
 	prd=products.objects.all()
 	cart_product_form= CartAddProductForm()
-	return render(request,"after_home.html",{"title":"Home page",'categories':categories,'products':prd,'cart_product_form':cart_product_form})
+	return render(request,"after_home.html",{"title":"Home page",'categories':categories,'products':prd,'cart_product_form':cart_product_form,'blog':blog})
 
 def testimonial(request):
 	title= {"title":"Testimonial"}
