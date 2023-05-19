@@ -26,6 +26,35 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
   integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>jQuery(function ($) {
+
+    // Function which adds the 'animated' class to any '.animatable' in view
+    var doAnimations = function () {
+
+        // Calc current offset and get all animatables
+        var offset = $(window).scrollTop() + $(window).height(),
+            $animatables = $('.animatable');
+
+        // Unbind scroll handler if we have no animatables
+        if ($animatables.length == 0) {
+            $(window).off('scroll', doAnimations);
+        }
+
+        // Check all animatables and animate them if necessary
+        $animatables.each(function (i) {
+            var $animatable = $(this);
+            if (($animatable.offset().top + $animatable.height() - 300) < offset) {
+                $animatable.removeClass('animatable').addClass('animated');
+            }
+        });
+
+    };
+
+    // Hook doAnimations on scroll, and trigger a scroll
+    $(window).on('scroll', doAnimations);
+    $(window).trigger('scroll');
+
+});</script>
   <link rel="stylesheet" href="{% static '/css/style.css' %}">
 </head>
 
@@ -57,6 +86,7 @@
     <script>
           setTimeout(function(){ document.getElementById('message').innerHTML=" "; },500)
     </script>
+    
 
 </body>
      

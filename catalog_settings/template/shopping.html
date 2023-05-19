@@ -26,13 +26,8 @@
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <p class="card-text title">{{category.name}}</p>
-                                    <h5 class="product-rating">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </h5>
+                                    
+                                    <a href="/catalog/{{category.url}}">View All</a>
                                     <!--p class="card-text price">
                                         	<small class="text-body-secondary">$8.0</small>
                                         </p-->
@@ -50,32 +45,35 @@
                 <div class="card m-3">
                     <div class="row g-0 ">
                         <div class="col-md-4 p-2">
-                            <img src="/media/{{ shopping.pic2 }}" class="img-fluid rounded-start"
-                                alt="{{shopping.name}}">
+                            <a href="/product/{{ shopping.id }}">
+                                <img src="/media/{{ shopping.pic2 }}" class="img-fluid rounded-start"
+                                    alt="{{shopping.name}}">
+                            </a>
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <p class="card-text title my-2"><a href="/product/{{ shopping.id }}"
-                                        style="color: #000;">{{shopping.name}}</a></p>
-                                <p class="card-text price">
-                                    <strike style="font-size:20px">₹{{shopping.mrp}}</strike>
-                                    <small class="text-body-secondary">₹{{ shopping.sellingprice }}</small>
+                                <p class="card-text title my-2">
+                                    <a href="/product/{{ shopping.id }}">{{shopping.name}}</a>
                                 </p>
-                                <h5 class="product-rating">
+                                <p class="card-text price">
+                                    <small class="text-body-secondary" style="font-size:22px;color: #4A9E27;">₹{{ shopping.sellingprice }}</small>
+                                    <strike style="font-size:15px; color: #d90a0a;">₹{{shopping.mrp}}</strike>
+                                </p>
+                                <!-- <h5 class="product-rating">
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
-                                </h5>
+                                </h5> -->
                                 <p class="product-bio">{{ shopping.description }}</p>
                                 <!--a href="/ProductDetails/{{shopping.id}}">View Product</a-->
                                 <!--a href="#" class="btn btn-primary">Add to cart</a-->
                                 <form action="/cart/add/{{shopping.id}}" method="post">
                                     {% csrf_token %}
                                     {{ cart_product_form }}
-                                    <input type="submit" value="Add to cart" style="background-color: #4A9E27;"
-                                        class="btn text-light" id="b1"><br>
+                                    <input type="submit" value="Add to cart" 
+                                        class="btn btn-primary" id="b1"><br>
                                 </form>
                             </div>
                         </div>
@@ -87,15 +85,17 @@
                     <div class="pagination d-flex justify-content-center  mb-2">
                         <span class="page-item page-link-item d-flex gap-3 align-items-center">
                             {% if prd.has_previous %}
-                            <a href="?page=1" class="page-link text-decoration-none" >&laquo; first</a>
-                            <a href="?page={{ prd.previous_page_number }}" class="page-link text-decoration-none" >previous</a>
+                            <a href="?page=1" class="page-link text-decoration-none">&laquo; first</a>
+                            <a href="?page={{ prd.previous_page_number }}"
+                                class="page-link text-decoration-none">previous</a>
                             {% endif %}
 
 
 
                             {% if prd.has_next %}
-                            <a href="?page={{ prd.next_page_number }}" class="page-link text-decoration-none" >next</a>
-                            <a href="?page={{ prd.paginator.num_pages }}" class="page-link text-decoration-none" >last &raquo;</a>
+                            <a href="?page={{ prd.next_page_number }}" class="page-link text-decoration-none">next</a>
+                            <a href="?page={{ prd.paginator.num_pages }}" class="page-link text-decoration-none">last
+                                &raquo;</a>
                             {% endif %}
                         </span>
                     </div>

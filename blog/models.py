@@ -21,3 +21,11 @@ class BlogComment(models.Model):
 	comment = models.TextField(blank=True,null = True)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
+
+class BlogCommentadd(models.Model):
+	name=models.CharField(max_length=200)
+	email=models.CharField(max_length=200)
+	comment = models.TextField(blank=True,null = True)
+	blog_id = models.CharField(max_length=200)
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)

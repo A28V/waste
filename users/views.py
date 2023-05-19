@@ -73,7 +73,7 @@ def logout(request):
 	return HttpResponseRedirect('/login')
 
 def home(request):
-	blog = Blog.objects.all()
+	blog = Blog.objects.all().order_by('id')[:3]
 	categories = Category.objects.all()
 	prd=products.objects.all()
 	cart_product_form= CartAddProductForm()
@@ -99,9 +99,6 @@ def faq(request):
 	title = {'title':'FAQs'}
 	return render(request, 'faq.html',title)
 
-def blog(request):
-	title = {'title':'blog'}
-	return render(request, 'blog.html',title)
 
 
 def terms(request):

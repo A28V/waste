@@ -11,7 +11,7 @@ def contact(request):
 def contactUser(request):
 	for key,value in request.POST.items():
 		if request.POST.get(key) == "":
-			return render(request,"contact.html",{'error':True})
+			return HttpResponse("Something Went Wrong")
 	name=request.POST.get('name')
 	email=request.POST.get('email')
 	subject=request.POST.get('subject')

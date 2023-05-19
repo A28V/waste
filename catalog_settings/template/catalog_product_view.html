@@ -2,98 +2,92 @@
 {% block content %}
 {% load static %}
 
-<div class="col-md-9 main-block p-0 m-0">
-    {% for shopping in prd %}
-    <div class="product-detail">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-lg-6 product-img-block">
-                    <div class="product-img">
-                        <img src="/media/{{ shopping.pic2 }}" alt="product-detail">
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 ">
-                    <div class="product-content">
-                        <h3><a href="/product/{{ shopping.id }}">{{shopping.name}}</a></h3>
-                        <div class="prize">
-                            <span class="new">₹{{shopping.sellingprice}}</span>
-                            <span class="old text-decoration-line-through">₹{{shopping.mrp}}</span>
-                        </div>
-                        <div class="product-rating d-flex align-center gap-1">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <span class="space">|</span>
-                            <span class="review">3 Review</span>
-                        </div>
-                        <p>{{ shopping.description }}</p>
-
-
-                        <form action="/cart/add/{{shopping.id}}" method="post">
-                            {% csrf_token %}
-                            {{ cart_product_form }}
-                            <input type="submit" value="Add to cart" style="background-color: #4A9E27;"
-                                class="btn text-light" id="b1"><br>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endfor%}
-
-</div>
-
-<div class="col-md-12 main-block p-0 m-0" id="rotate">
-
-        {% for shopping in product %}
-
-        {% if shopping.id != product_id %}
-        <div class="product-detail view-more ">
+<div class="row m-0 justify-content-center my-5">
+    <div class="col-md-9 main-block p-0 m-0">
+        {% for shopping in prd %}
+        <div class="product-detail">
             <div class="container">
-                <div class="row view-more-row">
+                <div class="row">
                     <div class="col-md-6 col-lg-6 product-img-block">
                         <div class="product-img">
                             <img src="/media/{{ shopping.pic2 }}" alt="product-detail">
+                            <span class="product-badge">{{ shopping.tag }}</span>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-6 text-center ">
+                    <div class="col-md-6 col-lg-6 ">
                         <div class="product-content">
                             <h3><a href="/product/{{ shopping.id }}">{{shopping.name}}</a></h3>
-                            <div class="prize mb-3">
-                                <span class="new">₹{{shopping.sellingprice}}</span>
-                                <span class="old text-decoration-line-through ">₹{{shopping.mrp}}</span>
+                            <div class="prize">
+                                <span class="new" style="font-size: 25px;color: #4A9E27;">₹{{shopping.sellingprice}}</span>
+                                <span class="old text-decoration-line-through" style="font-size: 15px;color: #e01212;">₹{{shopping.mrp}}</span>
                             </div>
-                                <!-- <div class="product-rating d-flex align-center gap-1">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <span class="space">|</span>
-                                    <span class="review">3 Review</span>
-                                </div> -->
-                            <!-- <p>{{ shopping.description }}</p> -->
+                            <div class="product-rating d-flex align-center gap-1">
+                                <!-- <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i> -->
+                                <span class="space">|</span>
+                                <span class="review">3 Review</span>
+                            </div>
+                            <p>{{ shopping.description }}</p>
 
 
-
-                            <form action="/cart/add/{{shopping.id}}" method="post" class="view-quantity">
+                            <form action="/cart/add/{{shopping.id}}" method="post">
                                 {% csrf_token %}
-                                <!-- {{ cart_product_form }} -->
-                                <input type="hidden" name="quantity" value="1">
-                                <input type="submit" value="Add to cart" style="background-color: #4A9E27;"
-                                    class="btn text-light" id="b1"><br>
+                                {{ cart_product_form }}
+                                <input type="submit" value="Add to cart" 
+                                    class="btn btn-primary" id="b1"><br>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-         {%endif%}
         {% endfor%}
+
     </div>
+</div>
+
+<div class="col-md-12 main-block p-0 mb-5 " id="rotate">
+
+    {% for shopping in product %}
+
+    {% if shopping.id != product_id %}
+    <div class="product-detail view-more ">
+        <div class="container">
+            <div class="row view-more-row">
+                <div class="col-md-6 col-lg-6 product-img-block">
+                    <div class="product-img">
+                        <a href="/product/{{ shopping.id }}">
+                            <img src="/media/{{ shopping.pic2 }}" alt="product-detail">
+
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 text-center mb-3">
+                    <div class="product-content">
+                        <h3><a href="/product/{{ shopping.id }}">{{shopping.name}}</a></h3>
+                        <div class="prize mb-3">
+                            <span class="new" style="font-size: 20px;color: #4A9E27;">₹{{shopping.sellingprice}}</span>
+                            <span class="old text-decoration-line-through " style="font-size: 15px;color: #ee1515;">₹{{shopping.mrp}}</span>
+                        </div>
+
+                        <form action="/cart/add/{{shopping.id}}" method="post" class="view-quantity">
+                            {% csrf_token %}
+                            <!-- {{ cart_product_form }} -->
+                            <input type="hidden" name="quantity" value="1">
+                            <input type="submit" value="Add to cart" 
+                                class="btn btn-primary" id="b1"><br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%endif%}
+    {% endfor%}
+</div>
 
 
 

@@ -3,11 +3,15 @@ from .models import OrderItem
 from .forms import OrderCreateForm
 from cart.cart import Cart
 from order.models import pay_status
-
+from django.http import HttpResponseRedirect;
 def order_create(request):
     cart = Cart(request)
+    if not request.session['cart']:
+        return HttpResponseRedirect('/home') 
     if request.method == 'POST':
+        pay_method = request.POST.get('pay_method')
         form = OrderCreateForm(request.POST)
+        order = ''
         if form.is_valid():
             order = form.save()
             for item in cart:
@@ -18,11 +22,24 @@ def order_create(request):
                     quantity=item['quantity']
                 )
             #cart.clear()
-        return render(request, 'orders/order/pay.html', {'order': order,'cart':cart})
+        if pay_method == 'cash_on':
+            cart.clear()
+            
+            request.session['orderid']=order.id
+            return HttpResponseRedirect('/orders/order-success')
+        else:
+            if request.session['userid']:
+                return render(request, 'orders/order/pay.html', {'cart':cart})
+            else:
+                return HttpResponseRedirect('/login')
     else:
         form = OrderCreateForm()
         cart = Cart(request)
-    return render(request, 'orders/order/create.html', {'form': form,'cart':cart})
+        if 'userid' in request.session:
+            return render(request, 'orders/order/create.html', {'form': form,'cart':cart})
+        else:
+            request.session['url_key']='/orders/create'
+            return HttpResponseRedirect('/login')
 
 
 def pay(request):
@@ -40,3 +57,5 @@ def pay(request):
 
 
 
+def order_success(request):
+    return render(request,'orders/order/created.html',{'title':'Order Success','orderid':request.session['orderid']})
