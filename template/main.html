@@ -54,7 +54,20 @@
     $(window).on('scroll', doAnimations);
     $(window).trigger('scroll');
 
-});</script>
+});
+jQuery("#navbarTogglerDemo02 a").each(function(e){
+     var anchorhref = jQuery(this).attr('href')
+     var currenturl = window.location.pathname
+
+    if(anchorhref==currenturl){
+        jQuery(this).addClass('active')
+     }
+     if(window.location.pathname == '/'){
+  jQuery('#homepage').addClass('active')
+}
+    
+})
+</script>
   <link rel="stylesheet" href="{% static '/css/style.css' %}">
 </head>
 

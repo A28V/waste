@@ -45,8 +45,15 @@
 
                         <div class="login-buttons">
                             <div class="cart-wrap">
-                                <a href="{% url 'cart_detail' %}"><i
-                                        class="fa-solid fa-cart-shopping fs-5  text-dark"></i>
+                                <a href="{% url 'cart_detail' %}">
+                                    {% with total_items=cart|length %}
+                                    {% if cart|length > 0 %}
+                                    {{ total_items }}
+                                    {% else %}
+                                    0
+                                    {% endif %}
+                                    {% endwith %}
+                                    <i class="fa-solid fa-cart-shopping fs-5  text-dark"></i>
 
                                 </a>
                             </div>
